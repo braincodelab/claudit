@@ -1,2 +1,2 @@
 # claudia
-Cloud-based Auditing of De-Identification and Anonymization
+Claudia: Cloud-based Auditing of De-Identification and Anonymization
