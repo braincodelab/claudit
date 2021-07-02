@@ -1,2 +1,8 @@
+
 # claudit
-claudit: Cloud-based Auditing of Clinical Imaging De-Identification and Anonymization
+
+claudit: Cloud-based auditing of clinical imaging de-identification and anonymization
+
+**claudit** (latin)  
+*verb*, to close, confine, restrict
+
