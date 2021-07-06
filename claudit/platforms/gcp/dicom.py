@@ -4,6 +4,7 @@ import os
 import json
 from googleapiclient import discovery
 
+
 def get_client():
     """Returns an authorized API client by discovering the Healthcare API and
     creating a service object using the service account credentials in the
@@ -209,16 +210,16 @@ def set_dicom_store_iam_policy(
     project_id, cloud_region, dataset_id, dicom_store_id, member, role, etag=None
 ):
     """Sets the IAM policy for the specified dicom store.
-        A single member will be assigned a single role. A member can be any of:
-        - allUsers, that is, anyone
-        - allAuthenticatedUsers, anyone authenticated with a Google account
-        - user:email, as in 'user:somebody@example.com'
-        - group:email, as in 'group:admins@example.com'
-        - domain:domainname, as in 'domain:example.com'
-        - serviceAccount:email,
-            as in 'serviceAccount:my-other-app@appspot.gserviceaccount.com'
-        A role can be any IAM role, such as 'roles/viewer', 'roles/owner',
-        or 'roles/editor'
+    A single member will be assigned a single role. A member can be any of:
+    - allUsers, that is, anyone
+    - allAuthenticatedUsers, anyone authenticated with a Google account
+    - user:email, as in 'user:somebody@example.com'
+    - group:email, as in 'group:admins@example.com'
+    - domain:domainname, as in 'domain:example.com'
+    - serviceAccount:email,
+        as in 'serviceAccount:my-other-app@appspot.gserviceaccount.com'
+    A role can be any IAM role, such as 'roles/viewer', 'roles/owner',
+    or 'roles/editor'
     """
     client = get_client()
     dicom_store_parent = "projects/{}/locations/{}/datasets/{}".format(
@@ -245,85 +246,73 @@ def set_dicom_store_iam_policy(
     return response
 
 
-
 def deidentify_dataset(
-        project_id,
-        cloud_region,
-        dataset_id,
-        destination_dataset_id,
-        tag_filter):
+    project_id, cloud_region, dataset_id, destination_dataset_id, tag_filter
+):
     """Creates a new dataset containing de-identified data
     from the source dataset.
     """
     client = get_client()
-    source_dataset = 'projects/{}/locations/{}/datasets/{}'.format(
-        project_id, cloud_region, dataset_id)
-    destination_dataset = 'projects/{}/locations/{}/datasets/{}'.format(
-        project_id, cloud_region, destination_dataset_id)
+    source_dataset = "projects/{}/locations/{}/datasets/{}".format(
+        project_id, cloud_region, dataset_id
+    )
+    destination_dataset = "projects/{}/locations/{}/datasets/{}".format(
+        project_id, cloud_region, destination_dataset_id
+    )
 
-    if tag_filter == 'keeplist':
-        
+    if tag_filter == "keeplist":
+
         body = {
-            'destinationDataset': destination_dataset,
-            'config': {
-                'dicom': {
-                    'keepList': {
-                        'tags': [
-                            'Columns',
-                            'NumberOfFrames',
-                            'PixelRepresentation',
-                            'MediaStorageSOPClassUID',
-                            'MediaStorageSOPInstanceUID',
-                            'Rows',
-                            'SamplesPerPixel',
-                            'BitsAllocated',
-                            'HighBit',
-                            'PhotometricInterpretation',
-                            'BitsStored',
-                            'PatientID',
-                            'TransferSyntaxUID',
-                            'SOPInstanceUID',
-                            'StudyInstanceUID',
-                            'SeriesInstanceUID',
-                            'PixelData'
+            "destinationDataset": destination_dataset,
+            "config": {
+                "dicom": {
+                    "keepList": {
+                        "tags": [
+                            "Columns",
+                            "NumberOfFrames",
+                            "PixelRepresentation",
+                            "MediaStorageSOPClassUID",
+                            "MediaStorageSOPInstanceUID",
+                            "Rows",
+                            "SamplesPerPixel",
+                            "BitsAllocated",
+                            "HighBit",
+                            "PhotometricInterpretation",
+                            "BitsStored",
+                            "PatientID",
+                            "TransferSyntaxUID",
+                            "SOPInstanceUID",
+                            "StudyInstanceUID",
+                            "SeriesInstanceUID",
+                            "PixelData",
                         ]
                     }
                 }
-            }
+            },
         }
-    
-    
-    elif tag_filter == 'filter_profile':
-        
-        #MINIMAL_KEEP_LIST_PROFILE
-        #DEIDENTIFY_TAG_CONTENTS
-        #KEEP_ALL_PROFILE
-        #ATTRIBUTE_CONFIDENTIALITY_BASIC_PROFILE
-        
-        
-        
-        body = {
-            'destinationDataset': destination_dataset,
-            'config': {
-                'dicom': {
-                    'filterProfile': 'DEIDENTIFY_TAG_CONTENTS'                   
-                }
-            }
-        }
-        
 
-    request = client.projects().locations().datasets().deidentify(
-        sourceDataset=source_dataset, body=body)
+    elif tag_filter == "filter_profile":
+
+        # MINIMAL_KEEP_LIST_PROFILE
+        # DEIDENTIFY_TAG_CONTENTS
+        # KEEP_ALL_PROFILE
+        # ATTRIBUTE_CONFIDENTIALITY_BASIC_PROFILE
+
+        body = {
+            "destinationDataset": destination_dataset,
+            "config": {"dicom": {"filterProfile": "DEIDENTIFY_TAG_CONTENTS"}},
+        }
+
+    request = (
+        client.projects()
+        .locations()
+        .datasets()
+        .deidentify(sourceDataset=source_dataset, body=body)
+    )
 
     response = request.execute()
     print(
-        'Data in dataset {} de-identified.'
-        'De-identified data written to {}'.format(
-            dataset_id,
-            destination_dataset_id))
+        "Data in dataset {} de-identified."
+        "De-identified data written to {}".format(dataset_id, destination_dataset_id)
+    )
     return response
-
-
-
-
-

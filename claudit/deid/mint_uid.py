@@ -30,10 +30,13 @@ class DicomUIDMint(object):
 
     app_id = attr.ib(converter=hash_str, default="dicom")
 
-    def hierarchical_suffix(self, PatientID: str,
-                            StudyInstanceUID: str,
-                            SeriesInstanceUID=None,
-                            SOPInstanceUID=None):
+    def hierarchical_suffix(
+        self,
+        PatientID: str,
+        StudyInstanceUID: str,
+        SeriesInstanceUID=None,
+        SOPInstanceUID=None,
+    ):
         """
         A hierarchical asset uid has the form:
           `prefix.app.patient.study.series.instance`
@@ -59,11 +62,13 @@ class DicomUIDMint(object):
 
         return ".".join(entries)
 
-
-    def uid(self, PatientID: str = None,
-            StudyInstanceUID: str = None,
-            SeriesInstanceUID=None,
-            SOPInstanceUID=None):
+    def uid(
+        self,
+        PatientID: str = None,
+        StudyInstanceUID: str = None,
+        SeriesInstanceUID=None,
+        SOPInstanceUID=None,
+    ):
         """
         app fields immediately following prefix with 2 digits are
         asset or common uids (pt, st, ser, inst).
@@ -72,10 +77,8 @@ class DicomUIDMint(object):
         Non-asset uids will have app fields >2 digits.
         """
 
-        suffix = self.hierarchical_suffix(PatientID,
-                                          StudyInstanceUID,
-                                          SeriesInstanceUID,
-                                          SOPInstanceUID)
+        suffix = self.hierarchical_suffix(
+            PatientID, StudyInstanceUID, SeriesInstanceUID, SOPInstanceUID
+        )
 
         return "{}.{}.{}".format(DicomUIDMint.prefix, self.app_id, suffix)
-

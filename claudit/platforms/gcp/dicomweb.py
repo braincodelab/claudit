@@ -45,7 +45,6 @@ def dicomweb_store_instance(
     return response
 
 
-
 def dicomweb_search_instance(
     base_url, project_id, cloud_region, dataset_id, dicom_store_id
 ):
@@ -70,7 +69,6 @@ def dicomweb_search_instance(
     print(json.dumps(instances, indent=2))
 
     return instances
-
 
 
 def dicomweb_retrieve_study(
@@ -102,7 +100,6 @@ def dicomweb_retrieve_study(
     return response
 
 
-
 def dicomweb_search_studies(
     base_url, project_id, cloud_region, dataset_id, dicom_store_id
 ):
@@ -132,7 +129,6 @@ def dicomweb_search_studies(
     # print(json.dumps(patients, indent=2))
 
     # return patients
-
 
 
 def dicomweb_retrieve_instance(
@@ -176,7 +172,6 @@ def dicomweb_retrieve_instance(
     return response
 
 
-
 def dicomweb_retrieve_rendered(
     base_url,
     project_id,
@@ -218,7 +213,6 @@ def dicomweb_retrieve_rendered(
         )
 
     return response
-
 
 
 def dicomweb_delete_study(
