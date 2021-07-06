@@ -1,10 +1,3 @@
-"""
-
-Much of this was copied from https://github.com/pieper/dicomsort
-but reformatted in a way that it can be used easily while in other 
-python scripts or jupyter notebooks. 
-
-"""
 
 import pydicom as pd
 from pydicom.filereader import InvalidDicomError
@@ -14,26 +7,30 @@ import shutil
 import time
 
 
-class DICOMSort(object):
+class DICOMSort:
     
     """
-    Class description
+
+    see https://github.com/pieper/dicomsort
+
     """
 
-    def __init__(self):
+    def __init__(
+        self, 
+        study_name = '%Modality-%StudyDescription-%StudyDate'.replace("/", ""),
+        series_name = '%SeriesDescription-%SeriesNumber'.replace("/", ""),
+        instance_name = '%Modality-%SeriesDescription-%SeriesNumber-%InstanceNumber.dcm'.replace("/", "")
+        ):
 
         self.renamed_files = {}
+        self.file_structure =  '/' + study_name + '/' + series_name + '/' + instance_name
 
 
     def rename_files(self, data_path, dest_path, verbose=True):
 
-        """
-        method description
-
-        """
         self.data_path = data_path
         self.dest_path = dest_path
-        #print(self.dest_path)
+
         files_renamed = 0
         files_skipped = 0
 
@@ -61,7 +58,6 @@ class DICOMSort(object):
         if verbose:
             print('Completed in {0} seconds'.format(int(time.time()-timestamp)))
         
-
         return True
         
         
@@ -152,8 +148,7 @@ class DICOMSort(object):
         keys = []
         form = ""
         
-        #p = self.dest_path + '/%StudyDescription-%StudyDate/%SeriesDescription-%SeriesNumber/%SeriesDescription-%SeriesNumber-%InstanceNumber.dcm'
-        p = self.dest_path + '/' + '%PerformedProcedureStepStartDate-%Modality'.replace("/", "") + '/%PerformedProcedureStepStartDate-%PerformedProcedureStepStartTime-%Modality-%SeriesDescription-%SeriesNumber/%Modality-%SeriesDescription-%SeriesNumber-%InstanceNumber.dcm'
+        p = self.dest_path + self.file_structure
         end = len(p)
         i = 0
         
