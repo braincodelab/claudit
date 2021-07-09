@@ -1,8 +1,8 @@
 
-# claudit
+# cloudit
 
 Cloud-based auditing of clinical imaging de-identification and anonymization
 
 **claudit** (latin)  
-*verb*, to close, confine, restrict
+*verb*, they close, confine, restrict
 
