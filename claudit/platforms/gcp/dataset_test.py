@@ -4,7 +4,7 @@ from gcp.dicom import create_dicom_store, import_dicom_instance
 # from deid.dummy import
 
 
-class DummyDataset:
+class GCPDataset:
     def __init__(
         self,
         project_id="automated-imaging-development",
@@ -38,3 +38,16 @@ class DummyDataset:
             self.dicom_store_id,
             self.content_uri,
         )
+
+
+
+
+    def deidentify_dataset():
+
+
+
+        return 0
+
+def dummy_dataset():
+    return 0
+

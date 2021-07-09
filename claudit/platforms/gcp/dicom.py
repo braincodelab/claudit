@@ -169,8 +169,6 @@ def import_dicom_instance(
 
     body = {"gcsSource": {"uri": "gs://{}".format(content_uri)}}
 
-    # Escape "import()" method keyword because "import"
-    # is a reserved keyword in Python
     request = (
         client.projects()
         .locations()
