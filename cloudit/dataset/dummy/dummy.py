@@ -1,7 +1,7 @@
 import os
 
 
-def dummy_insert(
+def insert_tags(
     folder, tags, dummy="rocky94@!", data_path=data_path, dest_path=dest_path
 ):
 
@@ -53,3 +53,24 @@ def dummy_insert(
                     ds.save_as(dest_filepath)
 
     print("completed:", dcm_dir)
+
+
+def insert_pixels():
+
+    
+
+    print("completed:", dcm_dir)
+
+
+
+def count_tags():
+
+    tag_count=0
+
+    return tag_count
+
+def count_pixels():
+
+    pixel_count=0
+
+    return pixel_count

@@ -11,7 +11,7 @@ def hash_str(s, digits=2):
 
 
 @attr.s
-class DicomUIDMint(object):
+class DicomUIDMint:
     """
     Minting reproducible UIDs is important for anticipating the OIDs of anonymized
     studies and for ensuring studies are linked by StudyUID even when individual series
